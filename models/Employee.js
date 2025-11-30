@@ -30,6 +30,10 @@ const employeeSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  profile_picture: {
+    type: String,
+    default: null,
+  },
   created_at: {
     type: Date,
     default: Date.now,

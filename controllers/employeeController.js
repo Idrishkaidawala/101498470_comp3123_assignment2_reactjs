@@ -2,7 +2,18 @@ const Employee = require('../models/Employee');
 
 const getAllEmployees = async (req, res) => {
   try {
-    const employees = await Employee.find();
+    const { department, position } = req.query;
+    let query = {};
+
+    // Build search query
+    if (department) {
+      query.department = { $regex: department, $options: 'i' };
+    }
+    if (position) {
+      query.position = { $regex: position, $options: 'i' };
+    }
+
+    const employees = await Employee.find(query);
     const formattedEmployees = employees.map(emp => ({
       employee_id: emp._id,
       first_name: emp.first_name,
@@ -12,6 +23,7 @@ const getAllEmployees = async (req, res) => {
       salary: emp.salary,
       date_of_joining: emp.date_of_joining,
       department: emp.department,
+      profile_picture: emp.profile_picture,
     }));
     res.status(200).json(formattedEmployees);
   } catch (error) {
@@ -29,7 +41,7 @@ const createEmployee = async (req, res) => {
       return res.status(400).json({ status: false, message: 'Employee with this email already exists' });
     }
 
-    const employee = new Employee({
+    const employeeData = {
       first_name,
       last_name,
       email,
@@ -37,8 +49,14 @@ const createEmployee = async (req, res) => {
       salary,
       date_of_joining,
       department,
-    });
+    };
 
+    // Add profile picture if uploaded
+    if (req.file) {
+      employeeData.profile_picture = `/uploads/${req.file.filename}`;
+    }
+
+    const employee = new Employee(employeeData);
     await employee.save();
 
     res.status(201).json({
@@ -67,6 +85,7 @@ const getEmployeeById = async (req, res) => {
       salary: employee.salary,
       date_of_joining: employee.date_of_joining,
       department: employee.department,
+      profile_picture: employee.profile_picture,
     });
   } catch (error) {
     res.status(500).json({ status: false, message: 'Server error' });
@@ -77,6 +96,13 @@ const updateEmployee = async (req, res) => {
   try {
     const { eid } = req.params;
     const updates = req.body;
+
+    // Add profile picture if uploaded
+    if (req.file) {
+      updates.profile_picture = `/uploads/${req.file.filename}`;
+    }
+
+    updates.updated_at = Date.now();
 
     const employee = await Employee.findByIdAndUpdate(eid, updates, { new: true });
     if (!employee) {
