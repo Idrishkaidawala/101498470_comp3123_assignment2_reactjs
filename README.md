@@ -1,4 +1,4 @@
-# 101498470_COMP3123_Assignment1 - Employee Management System
+# 101498470_COMP3123_Assignment2 - Employee Management System
 
 A full-stack Employee Management System built with **React**, **Node.js**, **Express**, and **MongoDB**. This application provides a complete CRUD interface for managing employee records with authentication, file uploads, and search functionality.
 
@@ -140,14 +140,6 @@ Beautiful card layout displaying complete employee information.
 ### Update Employee
 Pre-filled form for editing employee details with image upload capability.
 
-## 🔐 Default User Credentials
-
-```
-Username: admin
-Email: admin@example.com
-Password: password123
-```
-
 ## 📁 Project Structure
 
 ```
@@ -204,54 +196,6 @@ Password: password123
 6. **Update**: Click the edit icon to modify employee information
 7. **Delete**: Click the delete icon to remove an employee
 8. **Search**: Use the search bar and filters to find employees
-
-## 🌐 Deployment
-
-### Heroku Deployment (Backend)
-```bash
-heroku create your-app-name
-heroku addons:create mongolab
-git push heroku main
-```
-
-### Vercel Deployment (Frontend)
-```bash
-cd frontend
-vercel --prod
-```
-
-### Docker Deployment
-```bash
-docker-compose up -d
-```
-
-## 📝 Environment Variables
-
-### Backend (.env)
-```
-PORT=8084
-MONGO_URI=mongodb://localhost:27017/employee_db
-JWT_SECRET=your_jwt_secret_key
-```
-
-### Frontend (.env)
-```
-REACT_APP_API_URL=http://localhost:8084/api/v1
-```
-
-## 🎯 Evaluation Criteria Checklist
-
-- [x] Backend and frontend deployment/Docker Compose (10%)
-- [x] Working Signup component (7%)
-- [x] Working Login and Logout (8%)
-- [x] Employee list with professional design (10%)
-- [x] Add Employee with validation and file upload (15%)
-- [x] View and Update Employee with validation (10%)
-- [x] Delete Employee (5%)
-- [x] Search by department/position (10%)
-- [x] Material-UI design implementation (10%)
-- [x] Code organization and modular structure (5%)
-- [x] GitHub repository with commits and README (10%)
 
 ## 👨‍💻 Author
 
