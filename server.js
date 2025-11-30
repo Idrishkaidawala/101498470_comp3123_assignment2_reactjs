@@ -37,6 +37,12 @@ app.get('/', (req, res) => {
 app.use('/api/v1/user', require('./routes/user'));
 app.use('/api/v1/emp', require('./routes/employee'));
 
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+// Only listen on port if running locally (not on Vercel)
+if (process.env.NODE_ENV !== 'production') {
+  app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+  });
+}
+
+// Export for Vercel
+module.exports = app;
